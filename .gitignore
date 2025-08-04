@@ -79,4 +79,8 @@ __recovery/
 *.stat
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
+<<<<<<< HEAD
 modules/
+=======
+modules/
+>>>>>>> 7e68a40 (criação de alguns metodos)
