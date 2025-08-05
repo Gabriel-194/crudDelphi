@@ -8,7 +8,9 @@ uses
   uDisciplina in 'uDisciplina.pas',
   uTurma in 'uTurma.pas',
   uMatricula in 'uMatricula.pas',
-  uAlunoCadastro in 'uAlunoCadastro.pas' {frmAlunoCadastro};
+  uAlunoCadastro in 'uAlunoCadastro.pas' {frmAlunoCadastro},
+  uProfessorCadastro in 'uProfessorCadastro.pas' {frmProfessorCadastro},
+  dataBase in 'dataBase.pas' {DataModule1: TDataModule};
 
 {$R *.res}
 
@@ -17,5 +19,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(Tcrud, crud);
   Application.CreateForm(TfrmAlunoCadastro, frmAlunoCadastro);
+  Application.CreateForm(TfrmProfessorCadastro, frmProfessorCadastro);
+  Application.CreateForm(TDataModule1, DataModule1);
   Application.Run;
 end.

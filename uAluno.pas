@@ -25,15 +25,13 @@ implementation
 
 { TAluno }
 
-// Em uAluno.pas
 procedure TAluno.adicionar(lista: TStringList);
 begin
-  // Apenas adiciona a string única "codigo=nome"
   lista.Add(IntToStr(getCodigo) + '=' + getNome);
 end;
+
 procedure TAluno.listar;
 begin
-
 end;
 
 procedure TAluno.editar;

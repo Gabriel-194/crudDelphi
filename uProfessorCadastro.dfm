@@ -1,7 +1,7 @@
-object frmAlunoCadastro: TfrmAlunoCadastro
+object frmProfessorCadastro: TfrmProfessorCadastro
   Left = 0
   Top = 0
-  Caption = 'cadastro de aluno'
+  Caption = 'frmProfessorCadastro'
   ClientHeight = 441
   ClientWidth = 624
   Color = clBtnFace
@@ -19,11 +19,18 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Caption = 'Codigo :'
   end
   object Label2: TLabel
-    Left = 272
+    Left = 248
     Top = 80
     Width = 39
     Height = 15
     Caption = 'Nome :'
+  end
+  object Label3: TLabel
+    Left = 408
+    Top = 80
+    Width = 27
+    Height = 15
+    Caption = 'CPF :'
   end
   object edtCodigo: TEdit
     Left = 88
@@ -33,7 +40,7 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     TabOrder = 0
   end
   object edtNome: TEdit
-    Left = 272
+    Left = 248
     Top = 101
     Width = 121
     Height = 23
@@ -48,11 +55,11 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     TabOrder = 2
     OnClick = btnAdicionarClick
   end
-  object lsvAlunos: TListView
-    Left = 296
-    Top = 184
-    Width = 305
-    Height = 185
+  object lsvProfessor: TListView
+    Left = 224
+    Top = 192
+    Width = 361
+    Height = 201
     Columns = <
       item
         Caption = 'codigo'
@@ -60,7 +67,11 @@ object frmAlunoCadastro: TfrmAlunoCadastro
       end
       item
         Caption = 'nome'
-        Width = 250
+        Width = 200
+      end
+      item
+        Caption = 'cpf'
+        Width = 80
       end>
     TabOrder = 3
     ViewStyle = vsReport
@@ -72,7 +83,6 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Height = 25
     Caption = 'Listar'
     TabOrder = 4
-    OnClick = btnListarClick
   end
   object btnEditar: TButton
     Left = 88
@@ -81,7 +91,6 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Height = 25
     Caption = 'btnEditar'
     TabOrder = 5
-    OnClick = btnEditarClick
   end
   object btnExcluir: TButton
     Left = 88
@@ -90,6 +99,12 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Height = 25
     Caption = 'Excluir'
     TabOrder = 6
-    OnClick = btnExcluirClick
+  end
+  object edtCpf: TEdit
+    Left = 408
+    Top = 101
+    Width = 121
+    Height = 23
+    TabOrder = 7
   end
 end

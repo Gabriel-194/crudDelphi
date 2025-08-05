@@ -125,7 +125,7 @@ begin
 end;
 
 procedure TfrmAlunoCadastro.btnListarClick(Sender: TObject);
-var
+  var
   i: Integer;
   item: TListItem;
   dadosDoAluno: TStringList;

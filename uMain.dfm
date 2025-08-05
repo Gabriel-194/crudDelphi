@@ -34,4 +34,13 @@ object crud: Tcrud
     TabOrder = 0
     OnClick = btnAlunosClick
   end
+  object btnProfessor: TButton
+    Left = 304
+    Top = 160
+    Width = 201
+    Height = 25
+    Caption = 'Professor'
+    TabOrder = 1
+    OnClick = btnProfessorClick
+  end
 end
