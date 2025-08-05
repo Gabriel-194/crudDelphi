@@ -10,6 +10,7 @@ object crud: Tcrud
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
   TextHeight = 15
   object EscolhaOpcao: TLabel
     Left = 288

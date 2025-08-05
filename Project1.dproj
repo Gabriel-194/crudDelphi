@@ -132,6 +132,10 @@
         <DCCReference Include="uDisciplina.pas"/>
         <DCCReference Include="uTurma.pas"/>
         <DCCReference Include="uMatricula.pas"/>
+        <DCCReference Include="uAlunoCadastro.pas">
+            <Form>frmAlunoCadastro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -1,22 +1,22 @@
 unit uAluno;
 
 interface
-  uses System.Classes;
+  uses System.Classes,System.SysUtils;
  type TAluno = class
   protected
     nome : String;
     codigo : Integer;
+  public
+    function getNome: String;
+    procedure setNome(aNome:String);
 
-  function getNome: String;
-  procedure setNome(aNome:String);
+    function getCodigo:Integer;
+    procedure setCodigo(aCodigo:Integer);
 
-  function getCodigo:Integer;
-  procedure setCodigo(aCodigo:Integer);
-
-  procedure adicionar;
-  procedure listar;
-  procedure editar;
-  procedure excluir;
+    procedure adicionar(lista : TStringList);
+    procedure listar;
+    procedure editar;
+    procedure excluir;
  end;
 
   var listaAluno: TStringList;
@@ -25,12 +25,12 @@ implementation
 
 { TAluno }
 
-procedure TAluno.adicionar;
-  var aluno : String;
+// Em uAluno.pas
+procedure TAluno.adicionar(lista: TStringList);
 begin
-  listaAluno.Add(getNome + IntToStr(getCodigo));
+  // Apenas adiciona a string única "codigo=nome"
+  lista.Add(IntToStr(getCodigo) + '=' + getNome);
 end;
-
 procedure TAluno.listar;
 begin
 
