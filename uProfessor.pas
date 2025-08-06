@@ -37,8 +37,8 @@ begin
   query := TFDQuery.Create(nil);
   try
     query.Connection := connection;
-    query.SQL.Text := 'INSERT INTO PROFESSOR (CODIGO, NOME, CPF) VALUES (' +
-                      IntToStr(self.getCodigo) + ', ' +
+    query.SQL.Text := 'INSERT INTO professor (CODIGO, NOME, CPF) VALUES ('+
+                      self.getCodigo.ToString + ', ' +
                       QuotedStr(self.getNome) + ', ' +
                       QuotedStr(self.getCpf) + ')';
     query.ExecSQL;
@@ -55,7 +55,7 @@ begin
   query := TFDQuery.Create(nil);
   try
     query.Connection := connection;
-    query.SQL.Text := 'UPDATE PROFESSOR SET NOME = ' + QuotedStr(self.getNome) +
+    query.SQL.Text := 'UPDATE professor SET NOME = ' + QuotedStr(self.getNome) +
                       ', CPF = ' + QuotedStr(self.getCpf) +
                       ' WHERE CODIGO = ' + IntToStr(self.getCodigo);
     query.ExecSQL;
@@ -72,7 +72,7 @@ begin
   query := TFDQuery.Create(nil);
   try
     query.Connection := connection;
-    query.SQL.Text := 'DELETE FROM PROFESSOR WHERE CODIGO = ' + IntToStr(self.getCodigo);
+    query.SQL.Text := 'DELETE FROM professor WHERE CODIGO = ' + IntToStr(self.getCodigo);
     query.ExecSQL;
   finally
     query.Free;
