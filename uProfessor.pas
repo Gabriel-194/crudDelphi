@@ -1,36 +1,82 @@
 unit uProfessor;
 
 interface
-  uses System.Classes,  System.SysUtils,  Firedac.Comp.Client;
-type TProfessor = class
+
+uses
+  System.Classes, System.SysUtils, FireDAC.Comp.Client, Data.DB;
+
+type
+  TProfessor = class
   protected
-   codigo : Integer;
-   nome, cpf : String;
+    codigo: Integer;
+    nome, cpf: String;
   public
-   function getNome: String;
-   procedure setNome(aNome:String);
+    function getNome: String;
+    procedure setNome(aNome: String);
 
-   function getCodigo:Integer;
-   procedure setCodigo(aCodigo:Integer);
+    function getCodigo: Integer;
+    procedure setCodigo(aCodigo: Integer);
 
-   function getCpf: String;
-   procedure setCpf(aCpf:String);
+    function getCpf: String;
+    procedure setCpf(aCpf: String);
 
-   procedure adicionar(connection: TFDconnection);
-end;
-   var listaProfessor :TStringList;
+    procedure adicionar(connection: TFDConnection);
+    procedure atualizar(connection: TFDConnection);
+    procedure excluir(connection: TFDConnection);
+  end;
 
 implementation
 
 { TProfessor }
 
 
-
-{ TProfessor }
-
-procedure TProfessor.adicionar(connection: TFDconnection);
+procedure TProfessor.adicionar(connection: TFDConnection);
+var
+  query: TFDQuery;
 begin
-//insert into professor (codigo,nome,cpf) values (getCodigo, getNome, getCpf)
+  query := TFDQuery.Create(nil);
+  try
+    query.Connection := connection;
+    query.SQL.Text := 'INSERT INTO PROFESSOR (CODIGO, NOME, CPF) VALUES (' +
+                      IntToStr(self.getCodigo) + ', ' +
+                      QuotedStr(self.getNome) + ', ' +
+                      QuotedStr(self.getCpf) + ')';
+    query.ExecSQL;
+  finally
+    query.Free;
+  end;
+end;
+
+
+procedure TProfessor.atualizar(connection: TFDConnection);
+var
+  query: TFDQuery;
+begin
+  query := TFDQuery.Create(nil);
+  try
+    query.Connection := connection;
+    query.SQL.Text := 'UPDATE PROFESSOR SET NOME = ' + QuotedStr(self.getNome) +
+                      ', CPF = ' + QuotedStr(self.getCpf) +
+                      ' WHERE CODIGO = ' + IntToStr(self.getCodigo);
+    query.ExecSQL;
+  finally
+    query.Free;
+  end;
+end;
+
+
+procedure TProfessor.excluir(connection: TFDConnection);
+var
+  query: TFDQuery;
+begin
+  query := TFDQuery.Create(nil);
+  try
+    query.Connection := connection;
+    query.SQL.Text := 'DELETE FROM PROFESSOR WHERE CODIGO = ' + IntToStr(self.getCodigo);
+    query.ExecSQL;
+  finally
+    query.Free;
+  end;
 end;
 
 function TProfessor.getCodigo: Integer;

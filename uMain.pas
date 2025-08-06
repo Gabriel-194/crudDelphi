@@ -58,7 +58,7 @@ procedure Tcrud.btnProfessorClick(Sender: TObject);
 begin
   formProfessor := TfrmProfessorCadastro.create(nil);
   try
-    formProfessor.lista := self.listaProfessor;
+    //formProfessor.lista := self.listaProfessor;
     formProfessor.ShowModal;
   finally
     formProfessor.free;

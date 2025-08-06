@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, uProfessor;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, uProfessor, dataBase;
 
 type
   TfrmProfessorCadastro = class(TForm)
@@ -19,12 +19,13 @@ type
     btnExcluir: TButton;
     edtCpf: TEdit;
     Label3: TLabel;
+
     procedure btnAdicionarClick(Sender: TObject);
+
   private
     { Private declarations }
   public
     { Public declarations }
-    lista : TStringList;
   end;
 
 var
@@ -34,32 +35,32 @@ implementation
 
 {$R *.dfm}
 
+
 procedure TfrmProfessorCadastro.btnAdicionarClick(Sender: TObject);
 var
   professor: TProfessor;
   codigo: Integer;
 begin
-
-  professor := Tprofessor.Create;
+  professor := TProfessor.Create;
   try
     codigo := StrToIntDef(edtCodigo.Text, 0);
 
     professor.setCodigo(codigo);
     professor.setNome(edtNome.Text);
+    professor.setCPF(edtCpf.Text);
+    professor.adicionar(DataModule1.FDConnection1);
 
-    professor.adicionar(self.lista);
-
-    ShowMessage('professor cadastrado com sucesso!');
+    ShowMessage('Professor cadastrado com sucesso!');
 
     edtCodigo.Clear;
     edtNome.Clear;
-    edtCpf.Clear;
+    edtCPF.Clear;
     edtCodigo.SetFocus;
-
   finally
-
     professor.Free;
   end;
 end;
+
+
 
 end.
