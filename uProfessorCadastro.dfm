@@ -10,41 +10,34 @@ object frmProfessorCadastro: TfrmProfessorCadastro
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnShow = FormShow
   TextHeight = 15
-  object Label1: TLabel
-    Left = 88
-    Top = 80
-    Width = 45
-    Height = 15
-    Caption = 'Codigo :'
-  end
   object Label2: TLabel
-    Left = 248
-    Top = 80
+    Left = 136
+    Top = 72
     Width = 39
     Height = 15
     Caption = 'Nome :'
   end
   object Label3: TLabel
-    Left = 408
-    Top = 80
+    Left = 296
+    Top = 72
     Width = 27
     Height = 15
     Caption = 'CPF :'
   end
-  object edtCodigo: TEdit
+  object labelInstrucao: TLabel
     Left = 88
-    Top = 101
+    Top = 384
+    Width = 209
+    Height = 15
+  end
+  object edtNome: TEdit
+    Left = 136
+    Top = 93
     Width = 121
     Height = 23
     TabOrder = 0
-  end
-  object edtNome: TEdit
-    Left = 248
-    Top = 101
-    Width = 121
-    Height = 23
-    TabOrder = 1
   end
   object btnAdicionar: TButton
     Left = 88
@@ -52,12 +45,12 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     Width = 75
     Height = 25
     Caption = 'adicionar'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = btnAdicionarClick
   end
   object lsvProfessor: TListView
-    Left = 224
-    Top = 192
+    Left = 248
+    Top = 154
     Width = 361
     Height = 201
     Columns = <
@@ -73,42 +66,34 @@ object frmProfessorCadastro: TfrmProfessorCadastro
         Caption = 'cpf'
         Width = 80
       end>
-    TabOrder = 3
+    GridLines = True
+    TabOrder = 2
     ViewStyle = vsReport
   end
-  object btnListar: TButton
+  object btnEditar: TButton
     Left = 88
     Top = 232
     Width = 75
     Height = 25
-    Caption = 'Listar'
-    TabOrder = 4
-    OnClick = btnListarClick
-  end
-  object btnEditar: TButton
-    Left = 88
-    Top = 272
-    Width = 75
-    Height = 25
     Caption = 'Editar'
-    TabOrder = 5
+    TabOrder = 3
     OnClick = btnEditarClick
   end
   object btnExcluir: TButton
     Left = 88
-    Top = 312
+    Top = 272
     Width = 75
     Height = 25
     Caption = 'Excluir'
-    TabOrder = 6
+    TabOrder = 4
     OnClick = btnExcluirClick
   end
   object edtCpf: TEdit
-    Left = 408
-    Top = 101
+    Left = 296
+    Top = 93
     Width = 121
     Height = 23
-    TabOrder = 7
+    TabOrder = 5
   end
   object Panel1: TPanel
     Left = 0
@@ -116,7 +101,7 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     Width = 694
     Height = 92
     Align = alBottom
-    TabOrder = 8
+    TabOrder = 6
     Visible = False
     object Label5: TLabel
       Left = 72

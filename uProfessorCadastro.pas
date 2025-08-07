@@ -9,13 +9,10 @@ uses
 
 type
   TfrmProfessorCadastro = class(TForm)
-    Label1: TLabel;
     Label2: TLabel;
-    edtCodigo: TEdit;
     edtNome: TEdit;
     btnAdicionar: TButton;
     lsvProfessor: TListView;
-    btnListar: TButton;
     btnEditar: TButton;
     btnExcluir: TButton;
     edtCpf: TEdit;
@@ -26,12 +23,15 @@ type
     edtEditarNome: TEdit;
     edtEditarCpf: TEdit;
     btnConfirmar: TButton;
+    labelInstrucao: TLabel;
 
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
+    procedure atualizarTabela;
+    procedure FormShow(Sender: TObject);
 
 
   private
@@ -48,38 +48,8 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmProfessorCadastro.btnAdicionarClick(Sender: TObject);
-var
-  codigo: Integer;
-begin
-var
-   professor := TProfessor.Create;
-  try
-    codigo := StrToIntDef(edtCodigo.Text, 0);
-
-    professor.setCodigo(codigo);
-    professor.setNome(edtNome.Text);
-    professor.setCPF(edtCpf.Text);
-    professor.adicionar(DataModule1.FDConnection1);
-
-    ShowMessage('Professor cadastrado com sucesso!');
-
-    edtCodigo.Clear;
-    edtNome.Clear;
-    edtCPF.Clear;
-    edtCodigo.SetFocus;
-  finally
-    professor.Free;
-  end;
-end;
-
-procedure TfrmProfessorCadastro.btnEditarClick(Sender: TObject);
-begin
-    panel1.visible := true;
-end;
-
-procedure TfrmProfessorCadastro.btnListarClick(Sender: TObject);
-var
+procedure TfrmProfessorCadastro.atualizarTabela;
+ var
   query: TFDQuery;
   item: TListItem;
 begin
@@ -107,6 +77,54 @@ begin
   end;
 end;
 
+procedure TfrmProfessorCadastro.btnAdicionarClick(Sender: TObject);
+var
+  codigo: Integer;
+begin
+var
+   professor := TProfessor.Create;
+  try
+    if (edtNome.text = '') or (edtCpf.text = '') then begin
+      ShowMessage('Preencha todos os campos para adicioar o professor!');
+    end else begin
+
+
+    professor.setNome(edtNome.Text);
+    professor.setCPF(edtCpf.Text);
+    professor.adicionar(DataModule1.FDConnection1);
+
+    ShowMessage('Professor cadastrado com sucesso!');
+
+    edtNome.Clear;
+    edtCPF.Clear;
+    edtNome.SetFocus;
+    end;
+  finally
+    atualizarTabela;
+    professor.Free;
+
+  end;
+end;
+
+procedure TfrmProfessorCadastro.btnEditarClick(Sender: TObject);
+begin
+    panel1.visible := true;
+
+    edtEditarNome.text := lsvProfessor.Selected.SubItems[0];
+    edtEditarCpf.text := lsvProfessor.Selected.SubItems[1];
+    edtEditarNome.SetFocus;
+end;
+
+procedure TfrmProfessorCadastro.btnListarClick(Sender: TObject);
+begin
+   atualizarTabela;
+end;
+
+procedure TfrmProfessorCadastro.FormShow(Sender: TObject);
+begin
+  atualizarTabela;
+end;
+
 procedure TfrmProfessorCadastro.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
@@ -120,6 +138,7 @@ begin
 
   codigoParaEditar := StrToInt(lsvProfessor.Selected.Caption);
 
+
   professor := TProfessor.Create;
   try
     professor.setCodigo(codigoParaEditar);
@@ -132,8 +151,8 @@ begin
     panel1.Visible := false;
     edtEditarNome.Clear;
     edtEditarCpf.Clear;
-    btnListar.Click;
   finally
+    atualizarTabela;
     professor.Free;
   end;
 end;
@@ -141,26 +160,30 @@ end;
 procedure TfrmProfessorCadastro.btnExcluirClick(Sender: TObject);
 var codigoParaExcluir: Integer;
 begin
+  labelInstrucao.Caption := 'selecione um professor da lista e clique em excluir novamente para remover o professor selecionado';
 
   if lsvProfessor.Selected = nil then
   begin
     ShowMessage('Nenhum professor foi selecionado na lista.');
     Exit;
-  end;
-
-  codigoParaExcluir := StrToInt(lsvProfessor.Selected.caption);
+  end else begin
+      codigoParaExcluir := StrToInt(lsvProfessor.Selected.caption);
   professor := TProfessor.Create;
 
-  try
-    professor.setCodigo(codigoParaExcluir);
-    professor.excluir(DataModule1.FDConnection1);
+    try
+      professor.setCodigo(codigoParaExcluir);
+      professor.excluir(DataModule1.FDConnection1);
 
-    lsvProfessor.Items.Delete(lsvProfessor.Selected.Index);
+      lsvProfessor.Items.Delete(lsvProfessor.Selected.Index);
 
-    ShowMessage('Professor excluído com sucesso!');
-  finally
-    professor.free;
+      ShowMessage('Professor excluído com sucesso!');
+    finally
+      professor.free;
+    end;
+
   end;
+
+
 
 end;
 
