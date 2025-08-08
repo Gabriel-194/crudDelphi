@@ -24,6 +24,7 @@ type
     edtEditarCpf: TEdit;
     btnConfirmar: TButton;
     labelInstrucao: TLabel;
+    btnListar: TButton;
 
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
@@ -160,15 +161,15 @@ end;
 procedure TfrmProfessorCadastro.btnExcluirClick(Sender: TObject);
 var codigoParaExcluir: Integer;
 begin
-  labelInstrucao.Caption := 'selecione um professor da lista e clique em excluir novamente para remover o professor selecionado';
 
   if lsvProfessor.Selected = nil then
   begin
-    ShowMessage('Nenhum professor foi selecionado na lista.');
+    ShowMessage('Selecione um professor para excluir.');
     Exit;
   end else begin
-      codigoParaExcluir := StrToInt(lsvProfessor.Selected.caption);
-  professor := TProfessor.Create;
+
+    codigoParaExcluir := StrToInt(lsvProfessor.Selected.caption);
+    professor := TProfessor.Create;
 
     try
       professor.setCodigo(codigoParaExcluir);
@@ -178,6 +179,7 @@ begin
 
       ShowMessage('Professor excluído com sucesso!');
     finally
+      atualizartabela;
       professor.free;
     end;
 

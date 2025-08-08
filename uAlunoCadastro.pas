@@ -4,33 +4,43 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uAluno, Vcl.ComCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uAluno, Vcl.ComCtrls,  dataBase, FireDAC.Comp.Client, Data.DB,
+  Vcl.ExtCtrls;
 
 type
   TfrmAlunoCadastro = class(TForm)
-    Label1: TLabel;
     Label2: TLabel;
-    edtCodigo: TEdit;
     edtNome: TEdit;
     btnAdicionar: TButton;
-    lsvAlunos: TListView;
-    btnListar: TButton;
     btnEditar: TButton;
     btnExcluir: TButton;
+    edtCpf: TEdit;
+    Label1: TLabel;
+    Panel1: TPanel;
+    Label5: TLabel;
+    edtEditarCpf: TEdit;
+    Label6: TLabel;
+    btnConfirmar: TButton;
+    edtEditarNome: TEdit;
+    lsvAluno: TListView;
+    btnListar: TButton;
+
     procedure btnAdicionarClick(Sender: TObject);
-    procedure btnListarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
+    procedure atualizarTabela;
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure btnListarClick(Sender: TObject);
   private
     { Private declarations }
 
   public
     { Public declarations }
-    lista: TStringList;
   end;
 
 var
   frmAlunoCadastro: TfrmAlunoCadastro;
+  aluno: TAluno;
 
 implementation
 
@@ -38,117 +48,137 @@ implementation
 
 
 
+procedure TfrmAlunoCadastro.atualizarTabela;
+ var
+  query: TFDQuery;
+  item: TListItem;
+begin
+  lsvAluno.Items.Clear;
+  query := TFDQuery.Create(nil);
+  try
+    query.Connection := DataModule1.FDConnection1;
+
+    query.SQL.Text := 'SELECT * FROM aluno ORDER BY NOME';
+
+    query.Open;
+
+    while not query.Eof do
+    begin
+      item := lsvAluno.Items.Add;
+
+      item.Caption := query.FieldByName('CODIGO').AsString;
+      item.SubItems.Add(query.FieldByName('NOME').AsString);
+      item.SubItems.Add(query.FieldByName('CPF').AsString);
+
+      query.Next;
+    end;
+  finally
+  query.Free;
+  end;
+end;
+
 procedure TfrmAlunoCadastro.btnAdicionarClick(Sender: TObject);
 var
-  aluno: TAluno;
   codigo: Integer;
 begin
-
-  aluno := TAluno.Create;
+var
+   aluno := TAluno.Create;
   try
-    codigo := StrToIntDef(edtCodigo.Text, 0);
+    if (edtNome.text = '') or (edtCpf.text = '') then begin
+      ShowMessage('Preencha todos os campos para adicioar o aluno!');
+    end else begin
 
-    aluno.setCodigo(codigo);
+
     aluno.setNome(edtNome.Text);
+    aluno.setCPF(edtCpf.Text);
+    aluno.adicionar(DataModule1.FDConnection1);
 
-    aluno.adicionar(self.lista);
+    ShowMessage('aluno cadastrado com sucesso!');
 
-    ShowMessage('Aluno cadastrado com sucesso!');
-
-    edtCodigo.Clear;
     edtNome.Clear;
-    edtCodigo.SetFocus;
-
+    edtCPF.Clear;
+    edtNome.SetFocus;
+    end;
   finally
-
+    atualizarTabela;
     aluno.Free;
+
   end;
 end;
 
 procedure TfrmAlunoCadastro.btnEditarClick(Sender: TObject);
+begin
+    edtEditarNome.Text := lsvAluno.Selected.SubItems[0];
+    edtEditarCpf.Text := lsvAluno.Selected.SubItems[1];
+    edtEditarNome.SetFocus;
+    Panel1.Visible := True;
+end;
+
+procedure TfrmAlunoCadastro.btnConfirmarClick(Sender: TObject);
 var
-  indiceSelecionado: Integer;
-  novaLinhaCompleta: string;
+  codigoParaEditar: Integer;
 begin
 
-  if lsvAlunos.Selected = nil then
+  if lsvAluno.Selected = nil then
   begin
-    ShowMessage('Por favor, selecione um aluno na lista para editar.');
+    ShowMessage('Nenhum Aluno foi selecionado na lista.');
     Exit;
   end;
 
-  if (edtCodigo.Text = '') and (edtNome.Text = '') then
-  begin
+  codigoParaEditar := StrToInt(lsvAluno.Selected.Caption);
 
-    edtCodigo.Text := lsvAlunos.Selected.Caption;
 
-    edtNome.Text := lsvAlunos.Selected.SubItems[0];
+  aluno := TAluno.Create;
+  try
+    aluno.setCodigo(codigoParaEditar);
+    aluno.setNome(edtEditarNome.Text);
+    aluno.setCPF(edtEditarCpf.Text);
 
-    ShowMessage('Dados carregados. Altere e clique em Editar novamente para salvar.');
-  end
-  else
+    aluno.atualizar(DataModule1.FDConnection1);
 
-  begin
-    indiceSelecionado := lsvAlunos.Selected.Index;
-
-    novaLinhaCompleta := edtCodigo.Text + '=' + edtNome.Text;
-
-    lista[indiceSelecionado] := novaLinhaCompleta;
-
-    lsvAlunos.Selected.Caption := edtCodigo.Text;
-    lsvAlunos.Selected.SubItems[0] := edtNome.Text;
-
-    edtCodigo.Clear;
-    edtNome.Clear;
-    ShowMessage('Aluno atualizado com sucesso!');
+    ShowMessage('aluno atualizado com sucesso!');
+    panel1.Visible := false;
+    edtEditarNome.Clear;
+    edtEditarCpf.Clear;
+  finally
+    atualizarTabela;
+    aluno.Free;
   end;
 end;
 
+
+
 procedure TfrmAlunoCadastro.btnExcluirClick(Sender: TObject);
-var
-  indiceSelecionado: Integer;
+var codigoParaExcluir: Integer;
 begin
 
-  if lsvAlunos.Selected = nil then
+  if lsvAluno.Selected = nil then
   begin
-    ShowMessage('Por favor, selecione um aluno na lista para excluir.');
+    ShowMessage('Selecione um Aluno para excluir.');
     Exit;
+  end else begin
+
+    codigoParaExcluir := StrToInt(lsvAluno.Selected.caption);
+    aluno := TAluno.Create;
+
+    try
+      aluno.setCodigo(codigoParaExcluir);
+      aluno.excluir(DataModule1.FDConnection1);
+
+      lsvAluno.Items.Delete(lsvAluno.Selected.Index);
+
+      ShowMessage('Aluno excluído com sucesso!');
+    finally
+      atualizartabela;
+      Aluno.free;
+    end;
+
   end;
-
-  indiceSelecionado := lsvAlunos.Selected.Index;
-
-  lista.Delete(indiceSelecionado);
-
-  lsvAlunos.Items.Delete(indiceSelecionado);
-
-  ShowMessage('Aluno excluído com sucesso!');
 end;
 
 procedure TfrmAlunoCadastro.btnListarClick(Sender: TObject);
-  var
-  i: Integer;
-  item: TListItem;
-  dadosDoAluno: TStringList;
 begin
-  lsvAlunos.Items.Clear;
-
-  dadosDoAluno := TStringList.Create;
-  try
-    dadosDoAluno.Delimiter := '=';
-
-    for i := 0 to lista.Count - 1 do
-    begin
-
-      dadosDoAluno.DelimitedText := lista[i];
-
-      item := lsvAlunos.Items.Add;
-      item.Caption := dadosDoAluno[0];
-      item.SubItems.Add(dadosDoAluno[1]);
-    end;
-  finally
-
-    dadosDoAluno.Free;
-  end;
+  atualizarTabela;
 end;
 
 end.

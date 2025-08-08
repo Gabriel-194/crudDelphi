@@ -37,9 +37,10 @@ begin
   query := TFDQuery.Create(nil);
   try
     query.Connection := connection;
-    query.SQL.Text := 'INSERT INTO professor ( NOME, CPF) VALUES ('+
+      query.SQL.Text := 'INSERT INTO professor ( NOME, CPF) VALUES ('+
                       QuotedStr(self.getNome) + ', ' +
                       QuotedStr(self.getCpf) + ')';
+
     query.ExecSQL;
   finally
     query.Free;

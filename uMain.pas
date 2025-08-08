@@ -40,15 +40,14 @@ end;
 
 
 procedure Tcrud.btnAlunosClick(Sender: TObject);
-var
-  formAluno: TfrmAlunoCadastro;
+ var
+  formAluno : TfrmAlunoCadastro;
 begin
-  formAluno := TfrmAlunoCadastro.Create(nil);
+  formAluno := TfrmAlunoCadastro.create(nil);
   try
-    formAluno.lista := self.listaAluno;
     formAluno.ShowModal;
   finally
-    formAluno.Free;
+    formAluno.free;
   end;
 end;
 
@@ -58,7 +57,6 @@ procedure Tcrud.btnProfessorClick(Sender: TObject);
 begin
   formProfessor := TfrmProfessorCadastro.create(nil);
   try
-    //formProfessor.lista := self.listaProfessor;
     formProfessor.ShowModal;
   finally
     formProfessor.free;

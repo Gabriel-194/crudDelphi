@@ -29,7 +29,7 @@ object frmProfessorCadastro: TfrmProfessorCadastro
   object labelInstrucao: TLabel
     Left = 88
     Top = 384
-    Width = 209
+    Width = 3
     Height = 15
   end
   object edtNome: TEdit
@@ -72,7 +72,7 @@ object frmProfessorCadastro: TfrmProfessorCadastro
   end
   object btnEditar: TButton
     Left = 88
-    Top = 232
+    Top = 272
     Width = 75
     Height = 25
     Caption = 'Editar'
@@ -81,7 +81,7 @@ object frmProfessorCadastro: TfrmProfessorCadastro
   end
   object btnExcluir: TButton
     Left = 88
-    Top = 272
+    Top = 312
     Width = 75
     Height = 25
     Caption = 'Excluir'
@@ -140,5 +140,14 @@ object frmProfessorCadastro: TfrmProfessorCadastro
       TabOrder = 2
       OnClick = btnConfirmarClick
     end
+  end
+  object btnListar: TButton
+    Left = 88
+    Top = 232
+    Width = 75
+    Height = 25
+    Caption = 'btnListar'
+    TabOrder = 7
+    OnClick = btnListarClick
   end
 end
