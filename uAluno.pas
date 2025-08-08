@@ -27,9 +27,6 @@ implementation
 
 { TAluno }
 
-
-
-
 procedure TAluno.adicionar(connection: TFDConnection);
 var
   query: TFDQuery;

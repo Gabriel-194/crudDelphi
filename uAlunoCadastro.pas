@@ -18,12 +18,11 @@ type
     Label1: TLabel;
     Panel1: TPanel;
     Label5: TLabel;
-    edtEditarCpf: TEdit;
-    Label6: TLabel;
     btnConfirmar: TButton;
     edtEditarNome: TEdit;
     lsvAluno: TListView;
     btnListar: TButton;
+    edtEditarCpf: TEdit;
 
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
@@ -68,7 +67,6 @@ begin
 
       item.Caption := query.FieldByName('CODIGO').AsString;
       item.SubItems.Add(query.FieldByName('NOME').AsString);
-      item.SubItems.Add(query.FieldByName('CPF').AsString);
 
       query.Next;
     end;

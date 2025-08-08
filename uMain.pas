@@ -5,21 +5,18 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uAluno, uProfessor, uDisciplina, uTurma, uMatricula,
-  Vcl.ExtCtrls, uAlunoCadastro, uProfessorCadastro;
+  Vcl.ExtCtrls, uAlunoCadastro, uProfessorCadastro, uDisciplinaCadastro;
 
 type
   Tcrud = class(TForm)
     EscolhaOpcao: TLabel;
     btnAlunos: TButton;
     btnProfessor: TButton;
+    btnDisciplina: TButton;
     procedure btnAlunosClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure btnProfessorClick(Sender: TObject);
-    private
+    procedure btnDisciplinaClick(Sender: TObject);
 
-  public
-      listaAluno: TStringList;
-      listaProfessor: TStringList;
 
   end;
 
@@ -30,13 +27,6 @@ implementation
 
 {$R *.dfm}
 
-
-
-procedure Tcrud.FormCreate(Sender: TObject);
-begin
-  listaAluno := TStringList.Create;
-  listaProfessor := TStringList.Create;
-end;
 
 
 procedure Tcrud.btnAlunosClick(Sender: TObject);
@@ -62,6 +52,21 @@ begin
     formProfessor.free;
   end;
 end;
+
+procedure Tcrud.btnDisciplinaClick(Sender: TObject);
+var
+  formDisciplina : TfrmDisciplinaCadastro;
+begin
+  formDisciplina := TfrmDisciplinaCadastro.create(nil);
+  try
+    formDisciplina.ShowModal;
+  finally
+    formDisciplina.free;
+  end;
+
+end;
+
+
 
 
 

@@ -10,7 +10,8 @@ uses
   uMatricula in 'uMatricula.pas',
   uAlunoCadastro in 'uAlunoCadastro.pas' {frmAlunoCadastro},
   uProfessorCadastro in 'uProfessorCadastro.pas' {frmProfessorCadastro},
-  dataBase in 'dataBase.pas' {DataModule1: TDataModule};
+  dataBase in 'dataBase.pas' {DataModule1: TDataModule},
+  uDisciplinaCadastro in 'uDisciplinaCadastro.pas' {frmDisciplinaCadastro};
 
 {$R *.res}
 
@@ -21,5 +22,6 @@ begin
   Application.CreateForm(TfrmAlunoCadastro, frmAlunoCadastro);
   Application.CreateForm(TfrmProfessorCadastro, frmProfessorCadastro);
   Application.CreateForm(TDataModule1, DataModule1);
+  Application.CreateForm(TfrmDisciplinaCadastro, frmDisciplinaCadastro);
   Application.Run;
 end.

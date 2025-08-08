@@ -10,7 +10,6 @@ object crud: Tcrud
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OnCreate = FormCreate
   TextHeight = 15
   object EscolhaOpcao: TLabel
     Left = 288
@@ -42,5 +41,14 @@ object crud: Tcrud
     Caption = 'Professor'
     TabOrder = 1
     OnClick = btnProfessorClick
+  end
+  object btnDisciplina: TButton
+    Left = 304
+    Top = 208
+    Width = 201
+    Height = 25
+    Caption = 'Disciplina'
+    TabOrder = 2
+    OnClick = btnDisciplinaClick
   end
 end

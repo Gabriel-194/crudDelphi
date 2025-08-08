@@ -1,9 +1,9 @@
-object frmAlunoCadastro: TfrmAlunoCadastro
+object frmDisciplinaCadastro: TfrmDisciplinaCadastro
   Left = 0
   Top = 0
-  Caption = 'cadastro de aluno'
-  ClientHeight = 506
-  ClientWidth = 662
+  Caption = 'frmDisciplinacadastro'
+  ClientHeight = 521
+  ClientWidth = 729
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,13 +17,6 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Width = 39
     Height = 15
     Caption = 'Nome :'
-  end
-  object Label1: TLabel
-    Left = 296
-    Top = 72
-    Width = 24
-    Height = 15
-    Caption = 'CPF:'
   end
   object edtNome: TEdit
     Left = 88
@@ -59,20 +52,15 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     TabOrder = 3
     OnClick = btnExcluirClick
   end
-  object edtCpf: TEdit
-    Left = 296
-    Top = 93
-    Width = 121
-    Height = 23
-    TabOrder = 4
-  end
   object Panel1: TPanel
     Left = 0
-    Top = 424
-    Width = 662
+    Top = 439
+    Width = 729
     Height = 82
     Align = alBottom
-    TabOrder = 5
+    TabOrder = 4
+    ExplicitTop = 424
+    ExplicitWidth = 662
     object Label5: TLabel
       Left = 56
       Top = 19
@@ -96,18 +84,11 @@ object frmAlunoCadastro: TfrmAlunoCadastro
       TabOrder = 1
       OnClick = btnConfirmarClick
     end
-    object edtEditarCpf: TEdit
-      Left = 248
-      Top = 40
-      Width = 121
-      Height = 23
-      TabOrder = 2
-    end
   end
-  object lsvAluno: TListView
+  object lsvDisciplina: TListView
     Left = 248
     Top = 154
-    Width = 361
+    Width = 281
     Height = 201
     Columns = <
       item
@@ -117,13 +98,9 @@ object frmAlunoCadastro: TfrmAlunoCadastro
       item
         Caption = 'nome'
         Width = 200
-      end
-      item
-        Caption = 'cpf'
-        Width = 80
       end>
     GridLines = True
-    TabOrder = 6
+    TabOrder = 5
     ViewStyle = vsReport
   end
   object btnListar: TButton
@@ -132,7 +109,7 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Width = 75
     Height = 25
     Caption = 'Listar'
-    TabOrder = 7
+    TabOrder = 6
     OnClick = btnListarClick
   end
 end
