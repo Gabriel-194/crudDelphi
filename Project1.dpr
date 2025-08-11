@@ -11,7 +11,9 @@ uses
   uAlunoCadastro in 'uAlunoCadastro.pas' {frmAlunoCadastro},
   uProfessorCadastro in 'uProfessorCadastro.pas' {frmProfessorCadastro},
   dataBase in 'dataBase.pas' {DataModule1: TDataModule},
-  uDisciplinaCadastro in 'uDisciplinaCadastro.pas' {frmDisciplinaCadastro};
+  uDisciplinaCadastro in 'uDisciplinaCadastro.pas' {frmDisciplinaCadastro},
+  uCadastroTurma in 'uCadastroTurma.pas' {uTurmaCadastro},
+  uCadastroMatricula in 'uCadastroMatricula.pas' {frmCadastroMatriculas};
 
 {$R *.res}
 
@@ -23,5 +25,7 @@ begin
   Application.CreateForm(TfrmProfessorCadastro, frmProfessorCadastro);
   Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmDisciplinaCadastro, frmDisciplinaCadastro);
+  Application.CreateForm(TuTurmaCadastro, uTurmaCadastro);
+  Application.CreateForm(TfrmCadastroMatriculas, frmCadastroMatriculas);
   Application.Run;
 end.

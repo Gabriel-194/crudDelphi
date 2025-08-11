@@ -84,6 +84,24 @@ object crud: Tcrud
     StyleElements = [seFont, seBorder]
     OnClick = btnDisciplinaClick
   end
+  object btnTurma: TButton
+    Left = 240
+    Top = 384
+    Width = 75
+    Height = 25
+    Caption = 'Turma'
+    TabOrder = 3
+    OnClick = btnTurmaClick
+  end
+  object btnMatricula: TButton
+    Left = 400
+    Top = 384
+    Width = 75
+    Height = 25
+    Caption = 'matricula'
+    TabOrder = 4
+    OnClick = btnMatriculaClick
+  end
   object ImageList1: TImageList
     Height = 128
     Width = 128

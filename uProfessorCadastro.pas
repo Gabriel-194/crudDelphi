@@ -34,7 +34,6 @@ type
     procedure atualizarTabela;
     procedure FormShow(Sender: TObject);
 
-
   private
     { Private declarations }
   public
@@ -86,7 +85,7 @@ var
    professor := TProfessor.Create;
   try
     if (edtNome.text = '') or (edtCpf.text = '') then begin
-      ShowMessage('Preencha todos os campos para adicioar o professor!');
+      ShowMessage('Preencha todos os campos para adicionar o professor!');
     end else begin
 
 

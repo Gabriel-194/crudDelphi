@@ -84,7 +84,7 @@ var
     disciplina.setNome(edtNome.Text);
     disciplina.adicionar(DataModule1.FDConnection1);
 
-    ShowMessage('aluno cadastrado com sucesso!');
+    ShowMessage('disciplina cadastrada com sucesso!');
 
     edtNome.Clear;
     edtNome.SetFocus;
@@ -145,7 +145,7 @@ begin
 
   if lsvDisciplina.Selected = nil then
   begin
-    ShowMessage('Selecione um Aluno para excluir.');
+    ShowMessage('Selecione uma disciplina para excluir.');
     Exit;
   end else begin
 

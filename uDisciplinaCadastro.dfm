@@ -59,8 +59,6 @@ object frmDisciplinaCadastro: TfrmDisciplinaCadastro
     Height = 82
     Align = alBottom
     TabOrder = 4
-    ExplicitTop = 424
-    ExplicitWidth = 662
     object Label5: TLabel
       Left = 56
       Top = 19
