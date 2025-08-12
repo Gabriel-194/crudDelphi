@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, uProfessor, dataBase, FireDAC.Comp.Client, Data.DB,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList;
 
 type
   TfrmProfessorCadastro = class(TForm)
@@ -25,6 +25,7 @@ type
     btnConfirmar: TButton;
     labelInstrucao: TLabel;
     btnListar: TButton;
+    ImageList1: TImageList;
 
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
@@ -129,7 +130,6 @@ procedure TfrmProfessorCadastro.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
 begin
-
   if lsvProfessor.Selected = nil then
   begin
     ShowMessage('Nenhum professor foi selecionado na lista.');

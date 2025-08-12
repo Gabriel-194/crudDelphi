@@ -80,6 +80,14 @@ begin
   query := TFDQuery.Create(nil);
   try
     query.Connection := connection;
+
+    query.SQL.Text :='SELECT COUNT(*) AS total FROM matricula where codigo_turma = :id_turma';
+    query.ParamByName('id_turma').AsInteger := self.getCodigo;
+
+    if query.FieldByName('total').AsInteger > 0 then begin
+      raise Exception.Create('A turma selecionada esta cadastrada ha uma matricula,tente editar a matricula ou exclui-la antes de remover essa turma');
+    end;
+
     query.SQL.Text := 'DELETE FROM turma WHERE CODIGO = ' + IntToStr(self.getCodigo);
     query.ExecSQL;
   finally

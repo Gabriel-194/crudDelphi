@@ -72,6 +72,7 @@ begin
 
 end;
 
+
 procedure Tcrud.btnDisciplinaClick(Sender: TObject);
 var
   formDisciplina : TfrmDisciplinaCadastro;
