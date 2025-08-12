@@ -58,7 +58,7 @@ begin
     query.SQL.Text := 'UPDATE professor SET NOME = ' + QuotedStr(self.getNome) +
                       ', CPF = ' + QuotedStr(self.getCpf) +
                       ' WHERE CODIGO = ' + IntToStr(self.getCodigo);
-
+    query.ExecSQL;
   finally
     query.Free;
   end;
@@ -76,10 +76,12 @@ begin
 
     query.SQL.Text :='SELECT COUNT(*) AS total FROM turma where codigo_professor = :id_professor';
     query.ParamByName('id_professor').AsInteger := self.getCodigo;
+    query.Open;
 
     if query.FieldByName('total').AsInteger > 0 then begin
       raise Exception.Create('o professor selecionado esta cadastrado ha uma turma,tente editar a turma ou exclui-la antes de remover esse professor');
     end;
+    query.close;
 
     query.SQL.Text := 'DELETE FROM professor WHERE CODIGO = :codigo';
     query.ParamByName('codigo').AsInteger := self.getCodigo;

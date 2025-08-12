@@ -39,23 +39,6 @@ begin
   try
     query.Connection := connection;
 
-    query.SQL.Text := 'SELECT 1 FROM aluno WHERE codigo = :codigoAluno';
-    query.ParamByName('codigoAluno').AsInteger := Self.getCodigoAluno;
-    query.Open;
-    if query.IsEmpty then
-    begin
-     raise Exception.Create('Aluno não encontrado!');
-     exit;
-    end;
-
-    query.Close;
-    query.SQL.Text := 'SELECT 1 FROM turma WHERE codigo = :codigoTurma';
-    query.ParamByName('codigoTurma').AsInteger := Self.getCodigoTurma;
-    query.Open;
-    if query.IsEmpty then begin
-      raise Exception.Create('Turma não encontrada!');
-    end;
-
     query.SQL.Text := 'INSERT INTO matricula ( codigo_aluno, codigo_turma) VALUES ('+intToStr(self.getCodigoAluno) + ', ' +
       intToStr(self.getCodigoTurma) + ')';
 

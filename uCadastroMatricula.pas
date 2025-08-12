@@ -5,30 +5,33 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, uMatricula, dataBase, FireDAC.Comp.Client, Data.DB,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList;
 
 type
   TfrmCadastroMatriculas = class(TForm)
     Label2: TLabel;
     Label3: TLabel;
-    edtCodigoTurma: TEdit;
-    btnAdicionar: TButton;
     lsvMatricula: TListView;
-    btnEditar: TButton;
-    btnExcluir: TButton;
-    edtCodigoAluno: TEdit;
     Panel1: TPanel;
     Label5: TLabel;
     Label6: TLabel;
     edtEditarCodigoAluno: TEdit;
     edtEditarCodigoTurma: TEdit;
     btnConfirmar: TButton;
-    Listar: TButton;
+    ImageList1: TImageList;
+    btnAdicionar: TButton;
+    btnEditar: TButton;
+    btnExcluir: TButton;
+    btnListar: TButton;
+    cbAluno: TComboBox;
+    cbTurma: TComboBox;
     procedure btnAdicionarClick(Sender: TObject);
     procedure ListarClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnListarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -76,24 +79,26 @@ end;
 procedure TfrmCadastroMatriculas.btnAdicionarClick(Sender: TObject);
 var
   codigo: Integer;
+  aluno:String;
+  turma:String;
 begin
 var
    matricula := TMatricula.Create;
   try
-    if (edtCodigoAluno.text = '') or (edtCodigoTurma.text = '') then begin
+    if (cbAluno.text = '') or (cbTurma.text = '') then begin
       ShowMessage('Preencha todos os campos para fazer a matricula!');
     end else begin
 
-
-    matricula.setCodigoAluno(StrToInt(edtCodigoAluno.Text));
-    matricula.setCodigoTurma(StrToInt(edtCodigoTurma.Text));
+    aluno := cbAluno.text;
+    aluno := aluno.Remove(aluno.IndexOf('-')-1);
+    turma := cbTurma.text;
+    matricula.setCodigoAluno(StrToInt(aluno));
+    matricula.setCodigoTurma(StrToInt(turma));
     matricula.adicionar(DataModule1.FDConnection1);
 
     ShowMessage('Matricula feita com sucesso!');
 
-    edtCodigoAluno.Clear;
-    edtCodigoTurma.Clear;
-    edtCodigoAluno.SetFocus;
+    cbAluno.SetFocus;
     end;
   finally
     atualizarTabela;
@@ -105,24 +110,23 @@ end;
 
 procedure TfrmCadastroMatriculas.btnEditarClick(Sender: TObject);
 begin
-  panel1.visible := true;
+    if lsvMatricula.Selected = nil then
+  begin
+    ShowMessage('Selecione uma matricula na lista para editar.');
+    Exit;
+  end else begin
+    panel1.visible := true;
+    edtEditarCodigoAluno.text := lsvMatricula.Selected.SubItems[0];
+    edtEditarCodigoTurma.text := lsvMatricula.Selected.SubItems[1];
+    edtEditarCodigoAluno.SetFocus;
+  end;
 
-  edtEditarCodigoAluno.text := lsvMatricula.Selected.SubItems[0];
-  edtEditarCodigoTurma.text := lsvMatricula.Selected.SubItems[1];
-  edtEditarCodigoAluno.SetFocus;
 end;
 
 procedure TfrmCadastroMatriculas.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
 begin
-
-  if lsvMatricula.Selected = nil then
-  begin
-    ShowMessage('Nenhuma matricula foi selecionada na lista.');
-    Exit;
-  end;
-
   codigoParaEditar := StrToInt(lsvMatricula.Selected.Caption);
 
   matricula := TMatricula.Create;
@@ -132,7 +136,7 @@ begin
     matricula.setCodigoTurma(StrToInt(edtEditarCodigoTurma.Text));
     matricula.atualizar(DataModule1.FDConnection1);
 
-    ShowMessage('matricula atualizada com sucesso!');
+    ShowMessage('Matricula atualizada com sucesso!');
     panel1.Visible := false;
     edtEditarCodigoAluno.Clear;
     edtEditarCodigoTurma.Clear;
@@ -171,6 +175,42 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmCadastroMatriculas.btnListarClick(Sender: TObject);
+begin
+  atualizarTabela;
+end;
+
+procedure TfrmCadastroMatriculas.FormShow(Sender: TObject);
+var
+  query: TFDQuery;
+begin
+  query := TFDQuery.Create(nil);
+  try
+    query.Connection := DataModule1.FDConnection1;
+
+    query.SQL.Text := 'SELECT codigo, nome FROM aluno ORDER BY codigo';
+    query.Open;
+    while not query.Eof do begin
+      cbAluno.Items.Add(query.FieldByName('codigo').AsString+' - '+query.FieldByName('nome').AsString);
+      query.Next;
+    end;
+    query.Close;
+
+    query.SQL.Text := 'SELECT codigo FROM turma ORDER BY codigo';
+    query.Open;
+    while not query.Eof do begin
+      cbTurma.Items.Add(query.FieldByName('codigo').AsString);
+      query.Next;
+    end;
+    cbAluno.ItemIndex:=0;
+    cbTurma.ItemIndex:=0;
+    query.Close;
+
+  finally
+    query.Free;
+  end;
 end;
 
 end.

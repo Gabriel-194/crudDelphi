@@ -5,20 +5,21 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, uDisciplina, dataBase, FireDAC.Comp.Client, Data.DB,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList;
 
 type
   TfrmDisciplinaCadastro = class(TForm)
     Label2: TLabel;
     edtNome: TEdit;
-    btnAdicionar: TButton;
-    btnEditar: TButton;
-    btnExcluir: TButton;
     Panel1: TPanel;
     Label5: TLabel;
     edtEditarNome: TEdit;
     btnConfirmar: TButton;
     lsvDisciplina: TListView;
+    ImageList1: TImageList;
+    btnAdicionar: TButton;
+    btnEditar: TButton;
+    btnExcluir: TButton;
     btnListar: TButton;
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
@@ -51,7 +52,7 @@ begin
   try
     query.Connection := DataModule1.FDConnection1;
 
-    query.SQL.Text := 'SELECT * FROM disciplina ORDER BY NOME';
+    query.SQL.Text := 'SELECT * FROM disciplina ORDER BY codigo';
 
     query.Open;
 
@@ -104,22 +105,22 @@ end;
 
 procedure TfrmDisciplinaCadastro.btnEditarClick(Sender: TObject);
 begin
+  if lsvDisciplina.Selected = nil then
+  begin
+    ShowMessage('selecione uma disciplina na lista para editar');
+    Exit;
+  end else begin
+    Panel1.Visible := True;
     edtEditarNome.Text := lsvDisciplina.Selected.SubItems[0];
     edtEditarNome.SetFocus;
-    Panel1.Visible := True;
+  end;
+
 end;
 
 procedure TfrmDisciplinaCadastro.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
 begin
-
-  if lsvDisciplina.Selected = nil then
-  begin
-    ShowMessage('Nenhuma disciplina foi selecionada na lista.');
-    Exit;
-  end;
-
   codigoParaEditar := StrToInt(lsvDisciplina.Selected.Caption);
 
 

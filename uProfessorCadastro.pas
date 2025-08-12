@@ -36,6 +36,7 @@ type
     procedure FormShow(Sender: TObject);
 
   private
+
     { Private declarations }
   public
     { Public declarations }
@@ -59,7 +60,7 @@ begin
   try
     query.Connection := DataModule1.FDConnection1;
 
-    query.SQL.Text := 'SELECT * FROM professor ORDER BY NOME';
+    query.SQL.Text := 'SELECT * FROM professor ORDER BY codigo';
 
     query.Open;
 
@@ -109,17 +110,26 @@ end;
 
 procedure TfrmProfessorCadastro.btnEditarClick(Sender: TObject);
 begin
+  if lsvProfessor.Selected = nil then
+  begin
+    ShowMessage('Selecione um professor na lista para editar.');
+    Exit;
+  end else begin
     panel1.visible := true;
-
+    edtEditarNome.SetFocus;
     edtEditarNome.text := lsvProfessor.Selected.SubItems[0];
     edtEditarCpf.text := lsvProfessor.Selected.SubItems[1];
-    edtEditarNome.SetFocus;
+
+  end;
+
 end;
 
 procedure TfrmProfessorCadastro.btnListarClick(Sender: TObject);
 begin
    atualizarTabela;
 end;
+
+
 
 procedure TfrmProfessorCadastro.FormShow(Sender: TObject);
 begin
@@ -130,12 +140,6 @@ procedure TfrmProfessorCadastro.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
 begin
-  if lsvProfessor.Selected = nil then
-  begin
-    ShowMessage('Nenhum professor foi selecionado na lista.');
-    Exit;
-  end;
-
   codigoParaEditar := StrToInt(lsvProfessor.Selected.Caption);
 
 
@@ -178,14 +182,11 @@ begin
 
       ShowMessage('Professor excluído com sucesso!');
     finally
-      atualizartabela;
+      atualizarTabela;
       professor.free;
     end;
 
   end;
-
-
-
 end;
 
 end.

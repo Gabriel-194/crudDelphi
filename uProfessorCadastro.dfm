@@ -14,7 +14,7 @@ object frmProfessorCadastro: TfrmProfessorCadastro
   OnShow = FormShow
   TextHeight = 15
   object Label2: TLabel
-    Left = 42
+    Left = 58
     Top = 72
     Width = 39
     Height = 15
@@ -46,11 +46,12 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     Height = 15
   end
   object edtNome: TEdit
-    Left = 42
+    Left = 58
     Top = 93
     Width = 121
     Height = 23
     TabOrder = 0
+    StyleElements = [seFont]
   end
   object btnAdicionar: TButton
     Left = 58
@@ -116,6 +117,7 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     Width = 121
     Height = 23
     TabOrder = 5
+    StyleElements = [seFont]
   end
   object Panel1: TPanel
     Left = 0
@@ -127,8 +129,6 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     ParentBackground = False
     TabOrder = 6
     Visible = False
-    ExplicitTop = 440
-    ExplicitWidth = 697
     object Label5: TLabel
       Left = 72
       Top = 24
@@ -164,6 +164,7 @@ object frmProfessorCadastro: TfrmProfessorCadastro
       Width = 121
       Height = 23
       TabOrder = 0
+      StyleElements = [seFont]
     end
     object edtEditarCpf: TEdit
       Left = 248
@@ -171,9 +172,10 @@ object frmProfessorCadastro: TfrmProfessorCadastro
       Width = 121
       Height = 23
       TabOrder = 1
+      StyleElements = [seFont]
     end
     object btnConfirmar: TButton
-      Left = 664
+      Left = 656
       Top = 24
       Width = 113
       Height = 41

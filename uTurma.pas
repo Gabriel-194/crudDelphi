@@ -29,23 +29,6 @@ begin
   try
     query.Connection := connection;
 
-    query.SQL.Text := 'SELECT 1 FROM professor WHERE codigo = :codigoProfessor';
-    query.ParamByName('codigoProfessor').AsInteger := Self.getCodigoProfessor;
-    query.Open;
-    if query.IsEmpty then
-    begin
-     raise Exception.Create('Professor não encontrado!');
-     exit;
-    end;
-
-    query.Close;
-    query.SQL.Text := 'SELECT 1 FROM disciplina WHERE codigo = :codigoDisciplina';
-    query.ParamByName('codigoDisciplina').AsInteger := Self.getCodigoDisciplina;
-    query.Open;
-    if query.IsEmpty then begin
-      raise Exception.Create('Disciplina não encontrada!');
-    end;
-
     query.SQL.Text := 'INSERT INTO turma ( codigo_professor, codigo_disciplina) VALUES ('+intToStr(self.getCodigoProfessor) + ', ' +
       intToStr(self.getCodigoDisciplina) + ')';
 
@@ -83,10 +66,12 @@ begin
 
     query.SQL.Text :='SELECT COUNT(*) AS total FROM matricula where codigo_turma = :id_turma';
     query.ParamByName('id_turma').AsInteger := self.getCodigo;
+    query.Open;
 
     if query.FieldByName('total').AsInteger > 0 then begin
       raise Exception.Create('A turma selecionada esta cadastrada ha uma matricula,tente editar a matricula ou exclui-la antes de remover essa turma');
     end;
+    query.close;
 
     query.SQL.Text := 'DELETE FROM turma WHERE CODIGO = ' + IntToStr(self.getCodigo);
     query.ExecSQL;

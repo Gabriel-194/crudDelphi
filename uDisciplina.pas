@@ -66,10 +66,12 @@ begin
 
     query.SQL.Text :='SELECT COUNT(*) AS total FROM turma where codigo_disciplina = :id_disciplina';
     query.ParamByName('id_disciplina').AsInteger := self.getCodigo;
+    query.open;
 
     if query.FieldByName('total').AsInteger > 0 then begin
-      raise Exception.Create('A disciplina selecionada esta cadastrada ha uma turma,tente editar a turma ou exclui-la antes de remover essa matricula');
+      raise Exception.Create('A disciplina selecionada esta cadastrada ha uma turma,tente editar a turma ou exclui-la antes de remover essa disciplina');
     end;
+    query.close;
 
     query.SQL.Text := 'DELETE FROM disciplina WHERE CODIGO = ' + IntToStr(self.getCodigo);
     query.ExecSQL;

@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uAluno, Vcl.ComCtrls,  dataBase, FireDAC.Comp.Client, Data.DB,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList;
 
 type
   TfrmAlunoCadastro = class(TForm)
@@ -23,6 +23,8 @@ type
     lsvAluno: TListView;
     btnListar: TButton;
     edtEditarCpf: TEdit;
+    ImageList1: TImageList;
+    Label3: TLabel;
 
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
@@ -57,7 +59,7 @@ begin
   try
     query.Connection := DataModule1.FDConnection1;
 
-    query.SQL.Text := 'SELECT * FROM aluno ORDER BY NOME';
+    query.SQL.Text := 'SELECT * FROM aluno ORDER BY codigo';
 
     query.Open;
 
@@ -67,6 +69,7 @@ begin
 
       item.Caption := query.FieldByName('CODIGO').AsString;
       item.SubItems.Add(query.FieldByName('NOME').AsString);
+      item.SubItems.Add(query.FieldByName('CPF').AsString);
 
       query.Next;
     end;
@@ -91,7 +94,7 @@ var
     aluno.setCPF(edtCpf.Text);
     aluno.adicionar(DataModule1.FDConnection1);
 
-    ShowMessage('aluno cadastrado com sucesso!');
+    ShowMessage('Aluno cadastrado com sucesso!');
 
     edtNome.Clear;
     edtCPF.Clear;
@@ -106,25 +109,25 @@ end;
 
 procedure TfrmAlunoCadastro.btnEditarClick(Sender: TObject);
 begin
-    edtEditarNome.Text := lsvAluno.Selected.SubItems[0];
-    edtEditarCpf.Text := lsvAluno.Selected.SubItems[1];
+  if lsvAluno.Selected = nil then
+  begin
+    ShowMessage('Selecione um aluno na lista para editar.');
+    Exit;
+  end else begin
+    panel1.visible := true;
     edtEditarNome.SetFocus;
-    Panel1.Visible := True;
-end;
+    edtEditarNome.text := lsvAluno.Selected.SubItems[0];
+    edtEditarCpf.text := lsvAluno.Selected.SubItems[1];
+
+  end;
+
+  end;
 
 procedure TfrmAlunoCadastro.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
 begin
-
-  if lsvAluno.Selected = nil then
-  begin
-    ShowMessage('Nenhum Aluno foi selecionado na lista.');
-    Exit;
-  end;
-
   codigoParaEditar := StrToInt(lsvAluno.Selected.Caption);
-
 
   aluno := TAluno.Create;
   try
@@ -134,7 +137,7 @@ begin
 
     aluno.atualizar(DataModule1.FDConnection1);
 
-    ShowMessage('aluno atualizado com sucesso!');
+    ShowMessage('Aluno atualizado com sucesso!');
     panel1.Visible := false;
     edtEditarNome.Clear;
     edtEditarCpf.Clear;
@@ -152,7 +155,7 @@ begin
 
   if lsvAluno.Selected = nil then
   begin
-    ShowMessage('Selecione um Aluno para excluir.');
+    ShowMessage('Selecione um aluno para excluir.');
     Exit;
   end else begin
 
@@ -178,5 +181,6 @@ procedure TfrmAlunoCadastro.btnListarClick(Sender: TObject);
 begin
   atualizarTabela;
 end;
+
 
 end.

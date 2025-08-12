@@ -5,30 +5,33 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, uTurma, dataBase, FireDAC.Comp.Client, Data.DB,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList;
 
 type
   TuTurmaCadastro = class(TForm)
     Label2: TLabel;
     Label3: TLabel;
-    edtCodigoDisciplina: TEdit;
-    btnAdicionar: TButton;
     lsvTurma: TListView;
-    btnEditar: TButton;
-    btnExcluir: TButton;
-    edtCodigoProfessor: TEdit;
     Panel1: TPanel;
     Label5: TLabel;
     Label6: TLabel;
     edtEditarCodigoProfessor: TEdit;
     edtEditarCodigoDisciplina: TEdit;
     btnConfirmar: TButton;
-    Listar: TButton;
+    ImageList1: TImageList;
+    btnAdicionar: TButton;
+    btnEditar: TButton;
+    btnExcluir: TButton;
+    btnListar: TButton;
+    cbProfessor: TComboBox;
+    cbDisciplina: TComboBox;
     procedure ListarClick(Sender: TObject);
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnListarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -76,24 +79,27 @@ end;
 procedure TuTurmaCadastro.btnAdicionarClick(Sender: TObject);
 var
   codigo: Integer;
+  professor:String;
+  disciplina:String;
 begin
 var
    turma := TTurma.Create;
   try
-    if (edtCodigoProfessor.text = '') or (edtCodigoDisciplina.text = '') then begin
+    if (cbProfessor.text = '') or (cbDisciplina.text = '') then begin
       ShowMessage('Preencha todos os campos para adicionar a turma!');
     end else begin
 
-
-    turma.setCodigoProfessor(StrToInt(edtCodigoProfessor.Text));
-    turma.setCodigoDisciplina(StrToInt(edtCodigoDisciplina.Text));
+    professor:=cbProfessor.text;
+    professor:=professor.Remove(professor.IndexOf('-')-1);
+    disciplina:=cbDisciplina.Text;
+    disciplina:=disciplina.Remove(disciplina.IndexOf('-')-1);
+    turma.setCodigoProfessor(StrToInt(professor));
+    turma.setCodigoDisciplina(StrToInt(disciplina));
     turma.adicionar(DataModule1.FDConnection1);
 
     ShowMessage('Turma cadastrada com sucesso!');
 
-    edtCodigoProfessor.Clear;
-    edtCodigoDisciplina.Clear;
-    edtCodigoProfessor.SetFocus;
+    cbProfessor.SetFocus;
     end;
   finally
     atualizarTabela;
@@ -104,24 +110,23 @@ end;
 
 procedure TuTurmaCadastro.btnEditarClick(Sender: TObject);
 begin
-  panel1.visible := true;
+    if lsvTurma.Selected = nil then
+  begin
+    ShowMessage('Selecione uma turma na lista para editar.');
+    Exit;
+  end else begin
+    panel1.visible := true;
+    edtEditarCodigoProfessor.text := lsvTurma.Selected.SubItems[0];
+    edtEditarCodigoDisciplina.text := lsvturma.Selected.SubItems[1];
+    edtEditarCodigoProfessor.SetFocus;
+  end;
 
-  edtEditarCodigoProfessor.text := lsvTurma.Selected.SubItems[0];
-  edtEditarCodigoDisciplina.text := lsvturma.Selected.SubItems[1];
-  edtEditarCodigoProfessor.SetFocus;
 end;
 
 procedure TuTurmaCadastro.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
 begin
-
-  if lsvTurma.Selected = nil then
-  begin
-    ShowMessage('Nenhum turma foi selecionado na lista.');
-    Exit;
-  end;
-
   codigoParaEditar := StrToInt(lsvTurma.Selected.Caption);
 
   turma := TTurma.Create;
@@ -169,6 +174,43 @@ begin
     end;
   end;
 
+end;
+
+
+procedure TuTurmaCadastro.btnListarClick(Sender: TObject);
+begin
+  atualizarTabela;
+end;
+
+procedure TuTurmaCadastro.Formshow(Sender: TObject);
+var
+  query: TFDQuery;
+begin
+  query := TFDQuery.Create(nil);
+  try
+    query.Connection := DataModule1.FDConnection1;
+
+    query.SQL.Text := 'SELECT codigo, nome FROM professor ORDER BY codigo';
+    query.Open;
+    while not query.Eof do begin
+      cbProfessor.Items.Add(query.FieldByName('codigo').AsString+' - '+query.FieldByName('nome').AsString);
+      query.Next;
+    end;
+    query.Close;
+
+    query.SQL.Text := 'SELECT codigo, nome FROM disciplina ORDER BY codigo';
+    query.Open;
+    while not query.Eof do begin
+      cbDisciplina.Items.Add(query.FieldByName('codigo').AsString+' - '+query.FieldByName('nome').AsString);
+      query.Next;
+    end;
+    cbDisciplina.ItemIndex:=0;
+    cbProfessor.ItemIndex:=0;
+    query.Close;
+
+  finally
+    query.Free;
+  end;
 end;
 
 end.

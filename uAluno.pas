@@ -72,10 +72,12 @@ begin
 
     query.SQL.Text :='SELECT COUNT(*) AS total FROM matricula where codigo_aluno = :id_aluno';
     query.ParamByName('id_aluno').AsInteger := self.getCodigo;
+    query.Open;
 
     if query.FieldByName('total').AsInteger > 0 then begin
       raise Exception.Create('o aluno selecionado esta cadastrado ha uma matricula,tente editar a matricula ou exclui-la antes de remover esse aluno');
     end;
+    query.Close;
 
     query.SQL.Text := 'DELETE FROM aluno WHERE CODIGO = ' + IntToStr(self.getCodigo);
     query.ExecSQL;
