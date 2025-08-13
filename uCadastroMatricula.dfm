@@ -40,9 +40,9 @@ object frmCadastroMatriculas: TfrmCadastroMatriculas
     ParentFont = False
   end
   object lsvMatricula: TListView
-    Left = 433
+    Left = 425
     Top = 40
-    Width = 336
+    Width = 360
     Height = 417
     Columns = <
       item
@@ -72,7 +72,7 @@ object frmCadastroMatriculas: TfrmCadastroMatriculas
     TabOrder = 1
     Visible = False
     object Label5: TLabel
-      Left = 72
+      Left = 56
       Top = 24
       Width = 76
       Height = 15
@@ -97,22 +97,6 @@ object frmCadastroMatriculas: TfrmCadastroMatriculas
       Font.Style = []
       ParentFont = False
     end
-    object edtEditarCodigoAluno: TEdit
-      Left = 72
-      Top = 45
-      Width = 121
-      Height = 23
-      TabOrder = 0
-      StyleElements = [seFont]
-    end
-    object edtEditarCodigoTurma: TEdit
-      Left = 248
-      Top = 45
-      Width = 121
-      Height = 23
-      TabOrder = 1
-      StyleElements = [seFont]
-    end
     object btnConfirmar: TButton
       Left = 648
       Top = 24
@@ -122,9 +106,31 @@ object frmCadastroMatriculas: TfrmCadastroMatriculas
       HotImageIndex = 4
       ImageIndex = 4
       Images = ImageList1
-      TabOrder = 2
+      TabOrder = 0
       StyleElements = [seFont]
       OnClick = btnConfirmarClick
+    end
+    object cbEditarAluno: TComboBox
+      Left = 56
+      Top = 45
+      Width = 145
+      Height = 22
+      Style = csOwnerDrawFixed
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 1
+      StyleElements = [seFont]
+    end
+    object cbEditarTurma: TComboBox
+      Left = 248
+      Top = 45
+      Width = 145
+      Height = 22
+      Style = csOwnerDrawFixed
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 2
+      StyleElements = [seFont]
     end
   end
   object btnAdicionar: TButton

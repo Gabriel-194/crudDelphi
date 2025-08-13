@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uAluno, Vcl.ComCtrls,  dataBase, FireDAC.Comp.Client, Data.DB,
-  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Vcl.Mask;
 
 type
   TfrmAlunoCadastro = class(TForm)
@@ -14,7 +14,6 @@ type
     btnAdicionar: TButton;
     btnEditar: TButton;
     btnExcluir: TButton;
-    edtCpf: TEdit;
     Label1: TLabel;
     Panel1: TPanel;
     Label5: TLabel;
@@ -22,9 +21,10 @@ type
     edtEditarNome: TEdit;
     lsvAluno: TListView;
     btnListar: TButton;
-    edtEditarCpf: TEdit;
     ImageList1: TImageList;
     Label3: TLabel;
+    edtCpf: TMaskEdit;
+    edtEditarCpf: TMaskEdit;
 
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
@@ -32,6 +32,7 @@ type
     procedure atualizarTabela;
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
 
@@ -79,8 +80,6 @@ begin
 end;
 
 procedure TfrmAlunoCadastro.btnAdicionarClick(Sender: TObject);
-var
-  codigo: Integer;
 begin
 var
    aluno := TAluno.Create;
@@ -166,8 +165,6 @@ begin
       aluno.setCodigo(codigoParaExcluir);
       aluno.excluir(DataModule1.FDConnection1);
 
-      lsvAluno.Items.Delete(lsvAluno.Selected.Index);
-
       ShowMessage('Aluno excluído com sucesso!');
     finally
       atualizartabela;
@@ -182,5 +179,10 @@ begin
   atualizarTabela;
 end;
 
+
+procedure TfrmAlunoCadastro.FormShow(Sender: TObject);
+begin
+  atualizarTabela;
+end;
 
 end.

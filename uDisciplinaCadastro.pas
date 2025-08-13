@@ -27,6 +27,7 @@ type
     procedure btnExcluirClick(Sender: TObject);
     procedure atualizarTabela;
     procedure btnConfirmarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
     { Private declarations }
@@ -71,8 +72,6 @@ begin
 end;
 
 procedure TfrmDisciplinaCadastro.btnAdicionarClick(Sender: TObject);
-var
-  codigo: Integer;
 begin
 var
    disciplina := TDisciplina.Create;
@@ -99,6 +98,11 @@ end;
 
 
 procedure TfrmDisciplinaCadastro.btnListarClick(Sender: TObject);
+begin
+  atualizarTabela;
+end;
+
+procedure TfrmDisciplinaCadastro.FormShow(Sender: TObject);
 begin
   atualizarTabela;
 end;
@@ -156,8 +160,6 @@ begin
     try
       disciplina.setCodigo(codigoParaExcluir);
       disciplina.excluir(DataModule1.FDConnection1);
-
-      lsvDisciplina.Items.Delete(lsvDisciplina.Selected.Index);
 
       ShowMessage('Disciplina excluída com sucesso!');
     finally

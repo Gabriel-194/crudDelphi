@@ -72,7 +72,7 @@ object uTurmaCadastro: TuTurmaCadastro
     TabOrder = 1
     Visible = False
     object Label5: TLabel
-      Left = 72
+      Left = 40
       Top = 24
       Width = 95
       Height = 15
@@ -97,20 +97,6 @@ object uTurmaCadastro: TuTurmaCadastro
       Font.Style = []
       ParentFont = False
     end
-    object edtEditarCodigoProfessor: TEdit
-      Left = 72
-      Top = 45
-      Width = 121
-      Height = 23
-      TabOrder = 0
-    end
-    object edtEditarCodigoDisciplina: TEdit
-      Left = 248
-      Top = 45
-      Width = 121
-      Height = 23
-      TabOrder = 1
-    end
     object btnConfirmar: TButton
       Left = 656
       Top = 32
@@ -119,9 +105,27 @@ object uTurmaCadastro: TuTurmaCadastro
       Caption = 'confirmar'
       ImageIndex = 4
       Images = ImageList1
-      TabOrder = 2
+      TabOrder = 0
       StyleElements = [seFont]
       OnClick = btnConfirmarClick
+    end
+    object cbEditarProfessor: TComboBox
+      Left = 40
+      Top = 45
+      Width = 145
+      Height = 22
+      Style = csOwnerDrawFixed
+      TabOrder = 1
+      StyleElements = [seFont]
+    end
+    object cbEditarDisciplina: TComboBox
+      Left = 248
+      Top = 45
+      Width = 145
+      Height = 22
+      Style = csOwnerDrawFixed
+      TabOrder = 2
+      StyleElements = [seFont]
     end
   end
   object btnAdicionar: TButton

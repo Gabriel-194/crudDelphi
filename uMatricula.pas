@@ -20,16 +20,8 @@ uses
   end;
 
 
-//    procedure adicionar(connection: TFDConnection);
-//    procedure atualizar(connection: TFDConnection);
-//    procedure excluir(connection: TFDConnection);
-
-
 implementation
 { TMatricula }
-
-
-
 
 procedure TMatricula.adicionar(connection: TFDConnection);
 var

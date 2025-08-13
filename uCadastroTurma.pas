@@ -15,8 +15,6 @@ type
     Panel1: TPanel;
     Label5: TLabel;
     Label6: TLabel;
-    edtEditarCodigoProfessor: TEdit;
-    edtEditarCodigoDisciplina: TEdit;
     btnConfirmar: TButton;
     ImageList1: TImageList;
     btnAdicionar: TButton;
@@ -25,6 +23,8 @@ type
     btnListar: TButton;
     cbProfessor: TComboBox;
     cbDisciplina: TComboBox;
+    cbEditarProfessor: TComboBox;
+    cbEditarDisciplina: TComboBox;
     procedure ListarClick(Sender: TObject);
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
@@ -78,7 +78,6 @@ end;
 
 procedure TuTurmaCadastro.btnAdicionarClick(Sender: TObject);
 var
-  codigo: Integer;
   professor:String;
   disciplina:String;
 begin
@@ -116,9 +115,6 @@ begin
     Exit;
   end else begin
     panel1.visible := true;
-    edtEditarCodigoProfessor.text := lsvTurma.Selected.SubItems[0];
-    edtEditarCodigoDisciplina.text := lsvturma.Selected.SubItems[1];
-    edtEditarCodigoProfessor.SetFocus;
   end;
 
 end;
@@ -126,20 +122,25 @@ end;
 procedure TuTurmaCadastro.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
+  professor :String;
+  disciplina :String;
 begin
   codigoParaEditar := StrToInt(lsvTurma.Selected.Caption);
 
   turma := TTurma.Create;
   try
     turma.setCodigo(codigoParaEditar);
-    turma.setCodigoProfessor(StrToInt(edtEditarCodigoProfessor.Text));
-    turma.setCodigoDisciplina(StrToInt(edtEditarCodigoDisciplina.Text));
+
+    professor := cbEditarProfessor.text;
+    professor := professor.Remove(professor.IndexOf('-')-1);
+    disciplina := cbEditarDisciplina.text;
+    disciplina := disciplina.Remove(disciplina.IndexOf('-')-1);
+    turma.setCodigoProfessor(StrToInt(professor));
+    turma.setCodigoDisciplina(StrToInt(disciplina));
     turma.atualizar(DataModule1.FDConnection1);
 
-    ShowMessage('turma atualizada com sucesso!');
+    ShowMessage('Matricula atualizada com sucesso!');
     panel1.Visible := false;
-    edtEditarCodigoProfessor.Clear;
-    edtEditarCodigoDisciplina.Clear;
   finally
     atualizarTabela;
     turma.Free;
@@ -165,8 +166,6 @@ begin
       turma.setCodigo(codigoParaExcluir);
       turma.excluir(DataModule1.FDConnection1);
 
-      lsvTurma.Items.Delete(lsvTurma.Selected.Index);
-
       ShowMessage('Turma excluída com sucesso!');
     finally
       atualizartabela;
@@ -182,18 +181,20 @@ begin
   atualizarTabela;
 end;
 
+
 procedure TuTurmaCadastro.Formshow(Sender: TObject);
 var
   query: TFDQuery;
 begin
   query := TFDQuery.Create(nil);
+  atualizarTabela;
   try
     query.Connection := DataModule1.FDConnection1;
-
     query.SQL.Text := 'SELECT codigo, nome FROM professor ORDER BY codigo';
     query.Open;
     while not query.Eof do begin
       cbProfessor.Items.Add(query.FieldByName('codigo').AsString+' - '+query.FieldByName('nome').AsString);
+      cbEditarProfessor.Items.Add(query.FieldByName('codigo').AsString+' - '+query.FieldByName('nome').AsString);
       query.Next;
     end;
     query.Close;
@@ -202,10 +203,13 @@ begin
     query.Open;
     while not query.Eof do begin
       cbDisciplina.Items.Add(query.FieldByName('codigo').AsString+' - '+query.FieldByName('nome').AsString);
+      cbEditarDisciplina.Items.Add(query.FieldByName('codigo').AsString+' - '+query.FieldByName('nome').AsString);
       query.Next;
     end;
     cbDisciplina.ItemIndex:=0;
     cbProfessor.ItemIndex:=0;
+    cbEditarDisciplina.ItemIndex:=0;
+    cbEditarProfessor.ItemIndex:=0;
     query.Close;
 
   finally

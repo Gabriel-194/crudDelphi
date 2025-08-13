@@ -10,6 +10,7 @@ object frmDisciplinaCadastro: TfrmDisciplinaCadastro
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnShow = FormShow
   TextHeight = 15
   object Label2: TLabel
     Left = 88

@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, uProfessor, dataBase, FireDAC.Comp.Client, Data.DB,
-  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Vcl.Mask;
 
 type
   TfrmProfessorCadastro = class(TForm)
@@ -15,17 +15,17 @@ type
     lsvProfessor: TListView;
     btnEditar: TButton;
     btnExcluir: TButton;
-    edtCpf: TEdit;
     Label3: TLabel;
     Panel1: TPanel;
     Label5: TLabel;
     Label6: TLabel;
     edtEditarNome: TEdit;
-    edtEditarCpf: TEdit;
     btnConfirmar: TButton;
     labelInstrucao: TLabel;
     btnListar: TButton;
     ImageList1: TImageList;
+    edtCpf: TMaskEdit;
+    edtEditarCpf: TMaskEdit;
 
     procedure btnAdicionarClick(Sender: TObject);
     procedure btnListarClick(Sender: TObject);
@@ -80,8 +80,6 @@ begin
 end;
 
 procedure TfrmProfessorCadastro.btnAdicionarClick(Sender: TObject);
-var
-  codigo: Integer;
 begin
 var
    professor := TProfessor.Create;
@@ -104,7 +102,6 @@ var
   finally
     atualizarTabela;
     professor.Free;
-
   end;
 end;
 
@@ -177,8 +174,6 @@ begin
     try
       professor.setCodigo(codigoParaExcluir);
       professor.excluir(DataModule1.FDConnection1);
-
-      lsvProfessor.Items.Delete(lsvProfessor.Selected.Index);
 
       ShowMessage('Professor excluído com sucesso!');
     finally

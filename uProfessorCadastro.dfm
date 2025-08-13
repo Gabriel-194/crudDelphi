@@ -111,14 +111,6 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     StyleElements = [seFont]
     OnClick = btnExcluirClick
   end
-  object edtCpf: TEdit
-    Left = 202
-    Top = 93
-    Width = 121
-    Height = 23
-    TabOrder = 5
-    StyleElements = [seFont]
-  end
   object Panel1: TPanel
     Left = 0
     Top = 492
@@ -127,8 +119,10 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     Align = alBottom
     Color = 4063233
     ParentBackground = False
-    TabOrder = 6
+    TabOrder = 5
     Visible = False
+    ExplicitTop = 484
+    ExplicitWidth = 828
     object Label5: TLabel
       Left = 72
       Top = 24
@@ -166,14 +160,6 @@ object frmProfessorCadastro: TfrmProfessorCadastro
       TabOrder = 0
       StyleElements = [seFont]
     end
-    object edtEditarCpf: TEdit
-      Left = 248
-      Top = 45
-      Width = 121
-      Height = 23
-      TabOrder = 1
-      StyleElements = [seFont]
-    end
     object btnConfirmar: TButton
       Left = 656
       Top = 24
@@ -189,9 +175,19 @@ object frmProfessorCadastro: TfrmProfessorCadastro
       ImageIndex = 4
       Images = ImageList1
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
       StyleElements = [seFont, seBorder]
       OnClick = btnConfirmarClick
+    end
+    object edtEditarCpf: TMaskEdit
+      Left = 248
+      Top = 45
+      Width = 120
+      Height = 23
+      EditMask = '000\.000\.000-00;1;_'
+      MaxLength = 14
+      TabOrder = 2
+      Text = '   .   .   -  '
     end
   end
   object btnListar: TButton
@@ -202,9 +198,19 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     Caption = 'Listar'
     ImageIndex = 1
     Images = ImageList1
-    TabOrder = 7
+    TabOrder = 6
     StyleElements = [seFont]
     OnClick = btnListarClick
+  end
+  object edtCpf: TMaskEdit
+    Left = 202
+    Top = 93
+    Width = 120
+    Height = 23
+    EditMask = '000\.000\.000-00;1;_'
+    MaxLength = 14
+    TabOrder = 7
+    Text = '   .   .   -  '
   end
   object ImageList1: TImageList
     Height = 24

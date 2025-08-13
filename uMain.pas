@@ -33,8 +33,6 @@ implementation
 
 {$R *.dfm}
 
-
-
 procedure Tcrud.btnAlunosClick(Sender: TObject);
  var
   formAluno : TfrmAlunoCadastro;
@@ -59,7 +57,6 @@ begin
   end;
 end;
 
-
 procedure Tcrud.btnTurmaClick(Sender: TObject);
 var formTurma : TuTurmaCadastro;
 begin
@@ -71,7 +68,6 @@ begin
   end;
 
 end;
-
 
 procedure Tcrud.btnDisciplinaClick(Sender: TObject);
 var
@@ -85,10 +81,6 @@ begin
   end;
 
 end;
-
-
-
-
 
 procedure Tcrud.btnMatriculaClick(Sender: TObject);
 var

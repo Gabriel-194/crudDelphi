@@ -15,8 +15,6 @@ type
     Panel1: TPanel;
     Label5: TLabel;
     Label6: TLabel;
-    edtEditarCodigoAluno: TEdit;
-    edtEditarCodigoTurma: TEdit;
     btnConfirmar: TButton;
     ImageList1: TImageList;
     btnAdicionar: TButton;
@@ -25,6 +23,8 @@ type
     btnListar: TButton;
     cbAluno: TComboBox;
     cbTurma: TComboBox;
+    cbEditarAluno: TComboBox;
+    cbEditarTurma: TComboBox;
     procedure btnAdicionarClick(Sender: TObject);
     procedure ListarClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
@@ -78,7 +78,6 @@ end;
 
 procedure TfrmCadastroMatriculas.btnAdicionarClick(Sender: TObject);
 var
-  codigo: Integer;
   aluno:String;
   turma:String;
 begin
@@ -116,9 +115,7 @@ begin
     Exit;
   end else begin
     panel1.visible := true;
-    edtEditarCodigoAluno.text := lsvMatricula.Selected.SubItems[0];
-    edtEditarCodigoTurma.text := lsvMatricula.Selected.SubItems[1];
-    edtEditarCodigoAluno.SetFocus;
+    cbEditarAluno.SetFocus;
   end;
 
 end;
@@ -126,25 +123,30 @@ end;
 procedure TfrmCadastroMatriculas.btnConfirmarClick(Sender: TObject);
 var
   codigoParaEditar: Integer;
+  aluno :String;
+  turma :String;
 begin
   codigoParaEditar := StrToInt(lsvMatricula.Selected.Caption);
 
   matricula := TMatricula.Create;
   try
     matricula.setCodigo(codigoParaEditar);
-    matricula.setCodigoAluno(StrToInt(edtEditarCodigoAluno.Text));
-    matricula.setCodigoTurma(StrToInt(edtEditarCodigoTurma.Text));
+
+    aluno := cbEditarAluno.text;
+    aluno := aluno.Remove(aluno.IndexOf('-'));
+    turma := cbEditarTurma.text;
+    matricula.setCodigoAluno(StrToInt(aluno));
+    matricula.setCodigoTurma(StrToInt(turma));
     matricula.atualizar(DataModule1.FDConnection1);
 
     ShowMessage('Matricula atualizada com sucesso!');
     panel1.Visible := false;
-    edtEditarCodigoAluno.Clear;
-    edtEditarCodigoTurma.Clear;
   finally
     atualizarTabela;
     matricula.Free;
   end;
 end;
+
 
 
 procedure TfrmCadastroMatriculas.ListarClick(Sender: TObject);
@@ -166,8 +168,6 @@ begin
       matricula.setCodigo(codigoParaExcluir);
       matricula.excluir(DataModule1.FDConnection1);
 
-      lsvMatricula.Items.Delete(lsvMatricula.Selected.Index);
-
       ShowMessage('Matricula excluída com sucesso!');
     finally
       atualizartabela;
@@ -187,6 +187,7 @@ var
   query: TFDQuery;
 begin
   query := TFDQuery.Create(nil);
+  atualizarTabela;
   try
     query.Connection := DataModule1.FDConnection1;
 
@@ -194,6 +195,7 @@ begin
     query.Open;
     while not query.Eof do begin
       cbAluno.Items.Add(query.FieldByName('codigo').AsString+' - '+query.FieldByName('nome').AsString);
+      cbEditarAluno.Items.Add(query.FieldByName('codigo' ).AsString+ '-' + query.FieldByName('nome').AsString);
       query.Next;
     end;
     query.Close;
@@ -202,10 +204,13 @@ begin
     query.Open;
     while not query.Eof do begin
       cbTurma.Items.Add(query.FieldByName('codigo').AsString);
+      cbEditarTurma.Items.Add(query.FieldByName('codigo').AsString);
       query.Next;
     end;
     cbAluno.ItemIndex:=0;
     cbTurma.ItemIndex:=0;
+    cbEditarAluno.ItemIndex:=0;
+    cbEditarTurma.ItemIndex:=0;
     query.Close;
 
   finally

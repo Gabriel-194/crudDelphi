@@ -11,6 +11,7 @@ object frmAlunoCadastro: TfrmAlunoCadastro
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnShow = FormShow
   TextHeight = 15
   object Label2: TLabel
     Left = 56
@@ -82,14 +83,6 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     StyleElements = [seFont]
     OnClick = btnExcluirClick
   end
-  object edtCpf: TEdit
-    Left = 208
-    Top = 77
-    Width = 121
-    Height = 23
-    TabOrder = 4
-    StyleElements = [seFont]
-  end
   object Panel1: TPanel
     Left = 0
     Top = 496
@@ -98,8 +91,10 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Align = alBottom
     Color = 4063233
     ParentBackground = False
-    TabOrder = 5
+    TabOrder = 4
     Visible = False
+    ExplicitTop = 488
+    ExplicitWidth = 828
     object Label5: TLabel
       Left = 56
       Top = 19
@@ -146,13 +141,15 @@ object frmAlunoCadastro: TfrmAlunoCadastro
       StyleElements = [seFont]
       OnClick = btnConfirmarClick
     end
-    object edtEditarCpf: TEdit
+    object edtEditarCpf: TMaskEdit
       Left = 248
       Top = 40
-      Width = 121
+      Width = 120
       Height = 23
+      EditMask = '000\.000\.000-00;1;_'
+      MaxLength = 14
       TabOrder = 2
-      StyleElements = [seFont]
+      Text = '   .   .   -  '
     end
   end
   object lsvAluno: TListView
@@ -174,7 +171,7 @@ object frmAlunoCadastro: TfrmAlunoCadastro
         Width = 80
       end>
     GridLines = True
-    TabOrder = 6
+    TabOrder = 5
     ViewStyle = vsReport
   end
   object btnListar: TButton
@@ -185,9 +182,19 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Caption = 'Listar'
     ImageIndex = 1
     Images = ImageList1
-    TabOrder = 7
+    TabOrder = 6
     StyleElements = [seFont]
     OnClick = btnListarClick
+  end
+  object edtCpf: TMaskEdit
+    Left = 208
+    Top = 77
+    Width = 120
+    Height = 23
+    EditMask = '000\.000\.000-00;1;_'
+    MaxLength = 14
+    TabOrder = 7
+    Text = '   .   .   -  '
   end
   object ImageList1: TImageList
     Height = 24
