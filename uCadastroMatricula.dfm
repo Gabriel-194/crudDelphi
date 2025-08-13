@@ -16,12 +16,12 @@ object frmCadastroMatriculas: TfrmCadastroMatriculas
   object Label2: TLabel
     Left = 27
     Top = 40
-    Width = 302
-    Height = 15
+    Width = 343
+    Height = 17
     Caption = 'digite o codigo do aluno desejado para fazer a matricula :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -29,12 +29,12 @@ object frmCadastroMatriculas: TfrmCadastroMatriculas
   object Label3: TLabel
     Left = 27
     Top = 96
-    Width = 286
-    Height = 15
+    Width = 323
+    Height = 17
     Caption = 'digite o codigo da turma que deseja fazer a matricula :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -74,12 +74,12 @@ object frmCadastroMatriculas: TfrmCadastroMatriculas
     object Label5: TLabel
       Left = 56
       Top = 24
-      Width = 76
-      Height = 15
+      Width = 84
+      Height = 17
       Caption = 'codigo aluno :'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -87,12 +87,12 @@ object frmCadastroMatriculas: TfrmCadastroMatriculas
     object Label6: TLabel
       Left = 248
       Top = 24
-      Width = 80
-      Height = 15
+      Width = 88
+      Height = 17
       Caption = 'Codigo turma :'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False

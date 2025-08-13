@@ -7,21 +7,21 @@ object uTurmaCadastro: TuTurmaCadastro
   Color = 8863802
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -13
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
   OnShow = FormShow
-  TextHeight = 15
+  TextHeight = 17
   object Label2: TLabel
     Left = 22
     Top = 40
-    Width = 291
-    Height = 15
+    Width = 335
+    Height = 17
     Caption = 'digite o codigo do professor desejado para essa turma :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -29,12 +29,12 @@ object uTurmaCadastro: TuTurmaCadastro
   object Label3: TLabel
     Left = 22
     Top = 104
-    Width = 333
-    Height = 15
+    Width = 375
+    Height = 17
     Caption = 'digite o codigo da disciplina que deseja adicionar nessa turma :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -74,12 +74,12 @@ object uTurmaCadastro: TuTurmaCadastro
     object Label5: TLabel
       Left = 40
       Top = 24
-      Width = 95
-      Height = 15
+      Width = 109
+      Height = 17
       Caption = 'codigo professor :'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -87,12 +87,12 @@ object uTurmaCadastro: TuTurmaCadastro
     object Label6: TLabel
       Left = 248
       Top = 24
-      Width = 98
-      Height = 15
+      Width = 108
+      Height = 17
       Caption = 'Codigo disciplina :'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False

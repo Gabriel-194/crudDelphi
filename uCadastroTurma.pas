@@ -139,7 +139,7 @@ begin
     turma.setCodigoDisciplina(StrToInt(disciplina));
     turma.atualizar(DataModule1.FDConnection1);
 
-    ShowMessage('Matricula atualizada com sucesso!');
+    ShowMessage('Turma atualizada com sucesso!');
     panel1.Visible := false;
   finally
     atualizarTabela;

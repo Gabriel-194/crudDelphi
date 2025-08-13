@@ -79,8 +79,6 @@ var
     if (edtNome.text = '') then begin
       ShowMessage('Preencha todos os campos para adicioar a disciplina!');
     end else begin
-
-
     disciplina.setNome(edtNome.Text);
     disciplina.adicionar(DataModule1.FDConnection1);
 

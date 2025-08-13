@@ -7,20 +7,21 @@ object frmDisciplinaCadastro: TfrmDisciplinaCadastro
   Color = 8863802
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -13
   Font.Name = 'Segoe UI'
   Font.Style = []
+  Position = poScreenCenter
   OnShow = FormShow
-  TextHeight = 15
+  TextHeight = 17
   object Label2: TLabel
     Left = 88
     Top = 72
-    Width = 39
-    Height = 15
+    Width = 43
+    Height = 17
     Caption = 'Nome :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -29,7 +30,7 @@ object frmDisciplinaCadastro: TfrmDisciplinaCadastro
     Left = 88
     Top = 93
     Width = 121
-    Height = 23
+    Height = 25
     TabOrder = 0
     StyleElements = [seFont]
   end
@@ -46,12 +47,12 @@ object frmDisciplinaCadastro: TfrmDisciplinaCadastro
     object Label5: TLabel
       Left = 56
       Top = 19
-      Width = 34
-      Height = 15
+      Width = 36
+      Height = 17
       Caption = 'nome:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -60,7 +61,7 @@ object frmDisciplinaCadastro: TfrmDisciplinaCadastro
       Left = 56
       Top = 40
       Width = 121
-      Height = 23
+      Height = 25
       TabOrder = 0
       StyleElements = [seFont]
     end

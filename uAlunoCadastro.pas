@@ -179,7 +179,6 @@ begin
   atualizarTabela;
 end;
 
-
 procedure TfrmAlunoCadastro.FormShow(Sender: TObject);
 begin
   atualizarTabela;

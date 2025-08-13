@@ -16,12 +16,12 @@ object frmProfessorCadastro: TfrmProfessorCadastro
   object Label2: TLabel
     Left = 58
     Top = 72
-    Width = 39
-    Height = 15
+    Width = 43
+    Height = 17
     Caption = 'Nome :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -29,12 +29,12 @@ object frmProfessorCadastro: TfrmProfessorCadastro
   object Label3: TLabel
     Left = 202
     Top = 72
-    Width = 27
-    Height = 15
+    Width = 28
+    Height = 17
     Caption = 'CPF :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -121,18 +121,16 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     ParentBackground = False
     TabOrder = 5
     Visible = False
-    ExplicitTop = 484
-    ExplicitWidth = 828
     object Label5: TLabel
       Left = 72
       Top = 24
-      Width = 39
-      Height = 15
+      Width = 43
+      Height = 17
       Caption = 'Nome :'
       Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentColor = False
@@ -142,12 +140,12 @@ object frmProfessorCadastro: TfrmProfessorCadastro
     object Label6: TLabel
       Left = 248
       Top = 24
-      Width = 27
-      Height = 15
+      Width = 28
+      Height = 17
       Caption = 'CPF :'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False

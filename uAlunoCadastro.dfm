@@ -16,12 +16,12 @@ object frmAlunoCadastro: TfrmAlunoCadastro
   object Label2: TLabel
     Left = 56
     Top = 56
-    Width = 39
-    Height = 15
+    Width = 43
+    Height = 17
     Caption = 'Nome :'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -30,11 +30,11 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     Left = 208
     Top = 56
     Width = 24
-    Height = 15
+    Height = 17
     Caption = 'CPF:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
-    Font.Height = -12
+    Font.Height = -13
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
@@ -93,17 +93,15 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     ParentBackground = False
     TabOrder = 4
     Visible = False
-    ExplicitTop = 488
-    ExplicitWidth = 828
     object Label5: TLabel
       Left = 56
       Top = 19
-      Width = 34
-      Height = 15
+      Width = 36
+      Height = 17
       Caption = 'nome:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -111,12 +109,12 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     object Label3: TLabel
       Left = 248
       Top = 19
-      Width = 27
-      Height = 15
+      Width = 28
+      Height = 17
       Caption = 'CPF :'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
-      Font.Height = -12
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -187,7 +185,7 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     OnClick = btnListarClick
   end
   object edtCpf: TMaskEdit
-    Left = 208
+    Left = 209
     Top = 77
     Width = 120
     Height = 23
@@ -195,6 +193,7 @@ object frmAlunoCadastro: TfrmAlunoCadastro
     MaxLength = 14
     TabOrder = 7
     Text = '   .   .   -  '
+    StyleElements = [seFont]
   end
   object ImageList1: TImageList
     Height = 24
